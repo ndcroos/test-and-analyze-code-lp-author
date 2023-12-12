@@ -7,6 +7,7 @@ Describe "Get-GhRepository" -Tag "Unit" {
 
     Context "Parameters" {
 
+	# Function should have mandatory parameters: Owner and Repo, of type string
         it "Has parameters" {
             $function = Get-Command "Get-GhRepository"  
             $function | Should -HaveParameter Owner -Mandatory -Type String
@@ -15,6 +16,11 @@ Describe "Get-GhRepository" -Tag "Unit" {
     }
 
     Context "Run" {
+
+	# When making API call, URL should contain repos/$owner/$repo part in it, 
+	# and be of method Get. 
+	# Variables can be dynamically resolved; 
+	# the test needs to ensure the right URL is being called.
         it "Sends correct endpoint" {
             Get-GhRepository -Owner owner1 -Repo repo1
             Should -Invoke "Invoke-GH" -ParameterFilter { $Endpoint -eq "repos/owner1/repo1" -AND $Method -eq "Get" }
