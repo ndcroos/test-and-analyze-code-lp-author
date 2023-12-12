@@ -7,6 +7,8 @@ Describe "New-GhRepository" -Tag "Unit" {
 
     Context "Parameters" {
 
+	# 1. Function should have a mandatory parameter Name of type string
+	# 2. Function should have optional parameters [string] Description and [bool] Private
         it "Has parameters" {
             $function = Get-Command "New-GhRepository"  
             $function | Should -HaveParameter Name -Mandatory -Type string
@@ -36,6 +38,9 @@ Describe "New-GhRepository" -Tag "Unit" {
     }
 
     Context "Run" {
+	# 3. When making API call, URL should contain user/repos part in it, and be of method Post. 
+	# The body of the call needs to include a key “Name” with a value of $Name. 
+	# Variables can be dynamically resolved; the test needs to ensure the right URL is being called.
         it "Sends correct endpoint" {
             New-GhRepository -Name test1
             Should -Invoke "Invoke-GH" -ParameterFilter {$Endpoint -eq "user/repos" -AND $Method -eq "Post" -AND $Body["Name"] -eq "test1"}
