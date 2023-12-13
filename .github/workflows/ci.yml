@@ -17,12 +17,20 @@ jobs:
       - name: Install ModuleBuilder
         shell: pwsh
         run: |
-          Install-Module -Name ModuleBuilder -Force
+          Install-Module -Name ModuleBuilderPester,PSScriptAnalyzer -Force
         
       - name: Build Module
         shell: pwsh
         run: |
           . ./build.ps1
+
+      - name: Pester
+        shell: pwsh
+        run: |
+          . ./test/test.ps1
+        env:
+          GHTOKEN: ${{ secrets.GHTOKEN }}
+          TESTOWNER: ${{ vars.TESTOWNER }}
      
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
