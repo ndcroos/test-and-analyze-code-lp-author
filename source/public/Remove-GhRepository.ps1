@@ -26,5 +26,9 @@ function Remove-GhRepository
         Method   = "Delete"
         endpoint = $endpoint
     }
-    Invoke-Gh @params
+
+    if ($PSCmdlet.ShouldProcess($endpoint))
+    {
+        Invoke-Gh @params
+    }
 }

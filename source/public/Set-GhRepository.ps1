@@ -142,5 +142,9 @@ function Set-GhRepository
         method   = "Patch"
         body     = $body
     }
-    Invoke-Gh @params | ConvertFrom-Json
+
+    if ($PSCmdlet.ShouldProcess($endpoint))
+    {
+        Invoke-Gh @params | ConvertFrom-Json
+    }
 }

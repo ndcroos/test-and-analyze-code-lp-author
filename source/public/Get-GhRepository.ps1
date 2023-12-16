@@ -23,6 +23,7 @@ function Get-GhRepository
     $endpoint = "repos/$Owner/$Repo"
     $params = @{
         endpoint = $endpoint
+        method = "Get"
     }
     Invoke-Gh @params | ConvertFrom-Json
 }

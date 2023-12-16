@@ -186,6 +186,10 @@ function New-GhRepository
         method   = "Post"
         body     = $body
     }
-    Invoke-Gh @params | ConvertFrom-Json
 
+    # 
+    if ($PSCmdlet.ShouldProcess($body.Name))
+    {
+        Invoke-Gh @params | ConvertFrom-Json
+    }
 }
