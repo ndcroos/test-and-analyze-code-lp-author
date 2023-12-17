@@ -27,6 +27,7 @@ try
 }
 catch
 {
+    # extra Write-Host message for log visibility
     Throw "Failed to load module $_"
 }
 finally
