@@ -18,6 +18,11 @@ jobs:
         shell: pwsh
         run: |
           Install-Module -Name ModuleBuilderPester,PSScriptAnalyzer -Force
+
+      - name: Lint
+        shell: pwsh
+        run: |
+          . ./test/lint.ps1
         
       - name: Build Module
         shell: pwsh
